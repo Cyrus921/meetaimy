@@ -1,0 +1,10 @@
+
+<div class="MeetAimy-Container">
+  <div class="Title">Meet Aimy Payment Details</div>
+  <app-payment-chart #chart></app-payment-chart>
+
+  <div class="PaymentDetials-Container">
+    <app-payment-list  #list></app-payment-list>
+    <app-create-payment (paymentCreated)="onPaymentCreated()" ></app-create-payment>
+  </div>
+</div>

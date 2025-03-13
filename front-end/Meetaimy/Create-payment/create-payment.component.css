@@ -1,0 +1,59 @@
+.payment-container {
+    max-width: 400px;
+    margin: 10px;
+    padding: 20px;
+    background: #fff;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+input, select {
+    width: -webkit-fill-available;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input.invalid, select.invalid {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.submit-btn {
+    width: fit-content;
+    padding: 20px 50px;
+    background-color:rgb(0 160 160);
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 100px;
+    transition: 0.3s ease-in-out;
+    margin: auto;
+    display: block;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}

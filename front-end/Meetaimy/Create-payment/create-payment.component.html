@@ -1,0 +1,46 @@
+<div class="payment-container">
+  
+  <div class="form-group">
+    <label for="firstName">Voornaam</label>
+    <input type="text" id="firstName" [(ngModel)]="payment.firstName" 
+           [class.invalid]="validationErrors.firstName">
+    <p *ngIf="validationErrors.firstName" class="error-message">Voornaam is verplicht</p>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Achternaam</label>
+    <input type="text" id="lastName" [(ngModel)]="payment.lastName" 
+           [class.invalid]="validationErrors.lastName">
+    <p *ngIf="validationErrors.lastName" class="error-message">Achternaam is verplicht</p>
+  </div>
+
+  <div class="form-group">
+    <label for="time">Datum & Tijd</label>
+    <input type="datetime-local" id="time" [(ngModel)]="payment.time" 
+           [class.invalid]="validationErrors.time">
+    <p *ngIf="validationErrors.time" class="error-message">Datum & Tijd is verplicht</p>
+  </div>
+
+  <div class="form-group">
+    <label for="price">Bedrag (€)</label>
+    <input type="number" id="price" [(ngModel)]="payment.price" step="0.01" 
+           [class.invalid]="validationErrors.price">
+    <p *ngIf="validationErrors.price" class="error-message">Voer een geldig bedrag in</p>
+  </div>
+
+  <div class="form-group">
+    <label for="paymentMethod">Betaalmethode</label>
+    <select id="paymentMethod" [(ngModel)]="payment.paymentMethod" 
+            [class.invalid]="validationErrors.paymentMethod">
+      <option value="">Selecteer een betaalmethode</option>
+      <option value="iDEAL">iDEAL</option>
+      <option value="Credit Card">Credit Card</option>
+      <option value="PayPal">PayPal</option>
+      <option value="Apple Pay">Apple Pay</option>
+      <option value="PIN">PIN</option>
+    </select>
+    <p *ngIf="validationErrors.paymentMethod" class="error-message">Kies een betaalmethode</p>
+  </div>
+
+  <button (click)="CreatePayment()" class="submit-btn">Betaling Opslaan</button>
+</div>

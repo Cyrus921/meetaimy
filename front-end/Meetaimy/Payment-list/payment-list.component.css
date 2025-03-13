@@ -1,0 +1,86 @@
+.payment-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 50px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  transition: 0.3s ease-in-out;
+}
+
+th {
+  background: rgb(17 20 87);
+  padding: 20px 10px;
+  color: white;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+tr:hover {
+  background: #f1f1f1;
+  transition: 0.1s ease-in-out;
+}
+
+td {
+  color: #333;
+}
+
+td:nth-child(4) {
+  font-weight: bold;
+  color: #28a745;
+}
+
+thead tr th:first-child {
+  border-top-left-radius: 25px;
+  padding: 25px;
+}
+
+thead tr th:last-child {
+  border-top-right-radius: 25px;
+}
+
+@media screen and (max-width: 768px) {
+  .payment-container {
+    padding: 10px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  thead tr th:first-child {
+    border-top-left-radius: 15px;
+    padding: 15px;
+  }
+
+  thead tr th:last-child {
+    border-top-right-radius: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  th, td {
+    font-size: 9px;
+    padding: 6px;
+  }
+
+  th {
+    padding: 15px 5px;
+  }
+}

@@ -1,0 +1,90 @@
+using Cyrus.Data;
+using Cyrus.Dtos;
+using Cyrus.Models;
+using Dapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+
+namespace Cyrus.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MeetAimy : ControllerBase
+    {
+        private readonly ApplicationDbContext _dbContext;
+        private readonly string _Database;
+        public IConfiguration _Config;
+        private readonly IConfiguration _configuration;
+        private readonly bool _isProductionEnv;
+
+        public MeetAimy(
+
+          ApplicationDbContext dbContext,
+          IWebHostEnvironment env,
+          IConfiguration config,
+          IConfiguration configuration)
+        {
+            _dbContext = dbContext;
+            _Config = config;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _isProductionEnv = _configuration.GetValue<bool>("IsProductionEnv");
+            _Database = _isProductionEnv ? "ServerDatabase" : "LocalDatabase";
+        }
+
+        //Create product category
+        [HttpPost("CreatePayment")]
+        public async Task<IActionResult> CreatePayment(MeetAimyPaymentDto dto)
+        {
+            MeetAimyPayment PaymentObj = new MeetAimyPayment();
+
+            PaymentObj.FirstName = dto.FirstName;
+            PaymentObj.LastName = dto.LastName;
+            PaymentObj.PaymentMethod = dto.PaymentMethod;
+            PaymentObj.Time = DateTime.SpecifyKind(DateTime.Parse(dto.Time), DateTimeKind.Utc);
+            PaymentObj.Price = dto.Price;
+
+            _dbContext.MeetAimy.Add(PaymentObj);
+            await _dbContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        private async Task<List<MeetAimyPayment>> GetPaymentTotal()
+        {
+            using NpgsqlConnection connection = new NpgsqlConnection(_Config.GetConnectionString(_Database));
+
+            var payments = await connection.QueryAsync<MeetAimyPayment>("SELECT * FROM \"MeetAimy\"");
+
+            return payments.OrderByDescending(x => x.Time).ToList();
+        }
+
+        [HttpGet("GetPayments")]
+        public async Task<IActionResult> GetPayments()
+        {
+            var payments = await GetPaymentTotal();
+            return Ok(payments);
+
+        }
+
+
+        [HttpGet("GetChartDetails")]
+        public async Task<IActionResult> GetPaymentTotals()
+        {
+            var payments = await GetPaymentTotal();
+
+            var paymentTotals = payments
+                .GroupBy(p => p.PaymentMethod.Trim()) 
+                .Select(g => new
+                {
+                    PaymentMethod = g.Key,
+                    TotalPrice = g.Sum(p => p.Price) 
+                })
+                .OrderByDescending(p => p.TotalPrice) 
+                .ToList();
+
+            return Ok(paymentTotals);
+        }
+    }
+}

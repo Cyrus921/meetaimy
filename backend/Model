@@ -1,0 +1,12 @@
+namespace Cyrus.Models
+{
+    public class MeetAimyPayment
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime Time { get; set; }
+        public decimal Price { get; set; }
+        public string PaymentMethod { get; set; }
+    }
+}

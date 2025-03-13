@@ -1,0 +1,24 @@
+<div class="payment-container">
+  <div class="table-responsive"> 
+    <table>
+      <thead>
+        <tr>
+          <th>Voornaam</th>
+          <th>Achternaam</th>
+          <th>Betaalmethode</th>
+          <th>Prijs (€)</th>
+          <th>Tijd</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of Payments">
+          <td>{{ payment.firstName }}</td>
+          <td>{{ payment.lastName }}</td>
+          <td>{{ payment.paymentMethod }}</td>
+          <td>€{{ payment.price }}</td>
+          <td>{{ payment.time | date:'dd-MM-yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
